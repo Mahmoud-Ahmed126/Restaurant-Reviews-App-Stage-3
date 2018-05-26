@@ -34,6 +34,13 @@ self.addEventListener('install', function(event) {
 });
 
 
+// Register your service worker:
+navigator.serviceWorker.register('/sw.js');
+
+// Then later, request a one-off sync:
+navigator.serviceWorker.ready.then(function(swRegistration) {
+  return swRegistration.sync.register('myFirstSync');
+});
 
 // activate cache
 self.addEventListener('activate',  event => {
@@ -52,6 +59,7 @@ self.addEventListener('fetch', event => {
 //wait until connection stablish
 self.addEventListener('sync', function(event) {
   if (event.tag == 'myFirstSync') {
+   // event.waitUntil(DBHelper.kkk());
     event.waitUntil(DBHelper.kkk());
   }
 });
